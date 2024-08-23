@@ -112,6 +112,7 @@ export function TaskList() {
               transition={{ duration: 0.5 }}
             >
               <TaskCard
+                testId={`task-${task.id}`}
                 task={task}
                 onToggleCompletion={toggleTaskCompletion}
                 onDelete={deleteTask}

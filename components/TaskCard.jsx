@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-export function TaskCard({ task, onToggleCompletion, onDelete }) {
+export function TaskCard({ task, onToggleCompletion, onDelete, testId }) {
   const priorityColors = {
     low: "bg-green-200",
     medium: "bg-yellow-200",
@@ -16,6 +16,7 @@ export function TaskCard({ task, onToggleCompletion, onDelete }) {
       }`}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
+      data-test={testId}
     >
       <div className="flex justify-between items-center mb-2">
         <h3

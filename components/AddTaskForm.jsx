@@ -18,6 +18,7 @@ export function AddTaskForm({ onAddTask }) {
 
   return (
     <motion.form
+      data-test="add-task-form"
       onSubmit={handleSubmit}
       className="mb-8 p-6 bg-white text-black rounded-lg shadow-md"
       initial={{ opacity: 0, y: -50 }}
@@ -26,6 +27,7 @@ export function AddTaskForm({ onAddTask }) {
     >
       <input
         type="text"
+        data-test="task-title-input"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Task title"
@@ -34,12 +36,14 @@ export function AddTaskForm({ onAddTask }) {
       />
       <textarea
         value={description}
+        data-test="task-description-input"
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Task description"
         className="w-full p-2 mb-4 border rounded"
         required
       />
       <select
+        data-test="task-priority-select"
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
         className="w-full p-2 mb-4 border text-black rounded"
@@ -49,6 +53,7 @@ export function AddTaskForm({ onAddTask }) {
         <option value="high">High Priority</option>
       </select>
       <motion.button
+        data-test="add-task-button"
         type="submit"
         className="w-full p-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition"
         whileHover={{ scale: 1.05 }}
