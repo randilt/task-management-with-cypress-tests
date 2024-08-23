@@ -17,13 +17,18 @@ export function TaskCard({ task, onToggleCompletion, onDelete }) {
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
     >
-      <h3
-        className={`text-xl font-semibold mb-2 ${
-          task.completed ? "line-through" : ""
-        }`}
-      >
-        {task.title}
-      </h3>
+      <div className="flex justify-between items-center mb-2">
+        <h3
+          className={`text-xl font-semibold ${
+            task.completed ? "line-through" : ""
+          }`}
+        >
+          {task.title}
+        </h3>
+        <span className="px-2 py-1 text-xs font-semibold text-green-600 bg-green-100 rounded border-2 border-white shadow-sm">
+          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+        </span>
+      </div>
       <p className="text-gray-600 mb-4">{task.description}</p>
       <div className="flex justify-between items-center">
         <button
