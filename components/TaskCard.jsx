@@ -35,12 +35,14 @@ export function TaskCard({ task, onToggleCompletion, onDelete, testId }) {
         <button
           onClick={() => onToggleCompletion(task.id, task.completed)}
           className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition"
+          data-test={`toggle-task-${task.id}`}
         >
           {task.completed ? "Undo" : "Complete"}
         </button>
         <button
           onClick={() => onDelete(task.id)}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          data-test={`delete-task-${task.id}`}
         >
           Delete
         </button>

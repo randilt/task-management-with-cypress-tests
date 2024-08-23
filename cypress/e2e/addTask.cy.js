@@ -1,5 +1,3 @@
-// addtask.cy.js
-
 describe('Add Task Functionality', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
