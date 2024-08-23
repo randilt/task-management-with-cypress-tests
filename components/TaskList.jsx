@@ -14,6 +14,10 @@ export function TaskList() {
     fetchTasks();
   }, []);
 
+  useEffect(() => {
+    console.log("Tasks state updated:", tasks);
+  }, [tasks]);
+
   const fetchTasks = async () => {
     try {
       setLoading(true);
@@ -22,9 +26,7 @@ export function TaskList() {
         throw new Error("Failed to fetch tasks");
       }
       const data = await response.json();
-      if (!Array.isArray(data)) {
-        throw new Error("Invalid data format received from API");
-      }
+      console.log("Fetched tasks:", data);
       setTasks(data);
       setError(null);
     } catch (err) {
@@ -45,14 +47,14 @@ export function TaskList() {
       if (!response.ok) {
         throw new Error("Failed to add task");
       }
-      const data = await response.json();
-      setTasks((prevTasks) => [data, ...prevTasks]);
+      const addedTask = await response.json();
+      console.log("New task added:", addedTask);
+      setTasks((prevTasks) => [addedTask, ...prevTasks]);
     } catch (err) {
       console.error("Error adding task:", err);
       setError(err.message);
     }
   };
-
   const toggleTaskCompletion = async (id, completed) => {
     try {
       const response = await fetch(`/api/tasks/${id}`, {
@@ -101,28 +103,26 @@ export function TaskList() {
         Task Manager
       </h1>
       <AddTaskForm onAddTask={addTask} />
-      {Array.isArray(tasks) && tasks.length > 0 ? (
-        <AnimatePresence>
-          {tasks.map((task) => (
+      <AnimatePresence>
+        {tasks.map((task) => {
+          console.log("Rendering task in TaskList:", task);
+          return (
             <motion.div
-              key={task.id}
+              key={task.id || `temp-${Date.now()}`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}
             >
               <TaskCard
-                testId={`task-${task.id}`}
                 task={task}
                 onToggleCompletion={toggleTaskCompletion}
                 onDelete={deleteTask}
               />
             </motion.div>
-          ))}
-        </AnimatePresence>
-      ) : (
-        <p>No tasks available. Add a new task to get started!</p>
-      )}
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 }
